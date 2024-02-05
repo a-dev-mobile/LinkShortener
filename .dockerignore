@@ -1,0 +1,95 @@
+# Игнорирование директорий сборки и зависимостей
+**/bin/
+**/obj/
+**/out/
+
+# Игнорирование файлов Visual Studio и файлов конфигурации
+*.vs/
+*.vscode/
+.vs/
+.vscode/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.dbmdl
+*.jfm
+*.dbmdl
+*.tmp
+*.TMP
+*.temp
+*.Temp
+*.cache
+*.bak
+*.[Cc]ache
+*.[Oo]bj
+*.[Ll]og
+*.[Dd]ll
+*.[Ee]xe
+*.[Pp]db
+*.[Bb]in
+*.[Ss]uo
+*.[Tt]mp
+*.[Vv]shost.*
+*.cer
+*.pfx
+*.pubxml
+*.vspscc
+*.vssscc
+*.userprefs
+*.[Cc]ache
+*.[Cc]sproj.*
+*.[Vv]bproj.*
+*.[Ff]sproj.*
+*.[Cc]sxproj.*
+*.[Dd]acpac
+*.[Ss]ln.*
+*.[Mm]d5
+*.[Oo]penpublishing.*
+*.[Rr]ds
+*.[Cc]scfg
+
+# Игнорирование директорий с исходным кодом
+**/node_modules/
+**/bower_components/
+
+# Игнорирование артефактов IDE и редакторов
+**/.idea/
+**/.vs/
+**/.vscode/
+**/*.user
+**/*.orig
+
+# Игнорирование файлов логов и данных
+**/wwwroot/
+**/logs/
+**/ncrunch/
+**/artifacts/
+
+# Игнорирование файлов конфигурации
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
+appsettings.Staging.json
+
+# Игнорирование README и других текстовых файлов
+README.md
+LICENSE.txt
+*.md
+
+# Игнорирование специфичных файлов проекта
+*.sln
+*.csproj
+*.fsproj
+*.vbproj
+
+# Игнорирование файлов баз данных
+*.mdf
+*.ldf
+*.ndf
+
+# Игнорирование каталогов, созданных при выполнении тестов
+**/TestResults/
+**/.test/
+**/*.TestAdapter/
+**/*.testsettings
