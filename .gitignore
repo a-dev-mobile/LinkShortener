@@ -1,0 +1,123 @@
+## ASP.NET Scaffolding ##
+[Ss]caffoldingReadMe.txt
+
+## ASP.NET Core ##
+wwwroot/
+**/wwwroot/**
+!wwwroot/web.config
+!wwwroot/**/*.json
+
+## User-specific files ##
+*.rsuser
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.sln.docstates
+
+## User-specific files (MonoDevelop/Xamarin Studio) ##
+*.userprefs
+
+## Mono Auto Generated Files ##
+mono_crash.*
+
+## Windows image file caches ##
+Thumbs.db
+ehthumbs.db
+
+## Folder config file ##
+Desktop.ini
+
+## Recycle Bin used on file shares ##
+$RECYCLE.BIN/
+
+## Windows Installer files ##
+*.cab
+*.msi
+*.msm
+*.msp
+
+## Windows shortcuts ##
+*.lnk
+
+## Visual Studio files ##
+*.ncb
+*.sdf
+*.suo
+*.user
+*.userprefs
+*.csproj.user
+*.vbproj.user
+
+## Visual Studio Code files ##
+.vscode/
+
+## Visual Studio 2015/2017 cache/options directory ##
+.vs/
+# Uncomment if you have tasks that create the project's static files in wwwroot
+#wwwroot/
+
+## Build results ##
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+## MSTest test Results ##
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+## NUNIT ##
+*.VisualState.xml
+TestResult.xml
+nunit-*
+
+## Build Results of an ATL Project ##
+[Dd]ebugPS/
+[Rr]eleasePS/
+dlldata.c
+
+## BenchmarkDotNet Artifacts ##
+BenchmarkDotNet.Artifacts/
+
+## .NET Core ##
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/Properties/launchSettings.json
+
+## ASP.NET Scaffolding ##
+[Ss]caffoldingReadMe.txt
+
+## Tye ##
+.tye/
+
+## JetBrains Rider ##
+.idea/
+*.sln.iml
+
+## User Secrets ##
+**/secrets.json
+
+## Mac OS X ##
+.DS_Store
+
+## Custom files ##
+# Add your own custom file patterns here
+
+## Publish Web Output ##
+**/wwwroot/
+**/Views/
+**/Areas/*/Views
+**/appsettings.json
+**/appsettings.Development.json
+**/appsettings.Production.json
