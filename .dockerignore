@@ -78,10 +78,10 @@ LICENSE.txt
 *.md
 
 # Игнорирование специфичных файлов проекта
-*.sln
-*.csproj
-*.fsproj
-*.vbproj
+# *.sln
+# *.csproj
+# *.fsproj
+# *.vbproj
 
 # Игнорирование файлов баз данных
 *.mdf
