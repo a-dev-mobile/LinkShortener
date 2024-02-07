@@ -1,5 +1,12 @@
 var builder = WebApplication.CreateBuilder(args);
 
+
+// Настройка логирования
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+builder.Logging.AddDebug();
+builder.Logging.SetMinimumLevel(LogLevel.Debug); // Или другой уровень по вашему выбору
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -21,15 +28,20 @@ var app = builder.Build();
 // Use CORS with the "AllowAll" policy
 app.UseCors("AllowAll");
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(options =>
+{
+    options.RoutePrefix = "linkshortener/swagger"; // Change the Swagger UI route
+});
+// app.UseSwaggerUI();
 
 
 var testValue = builder.Configuration.GetValue<string>("TestValue");
-var appEnvironment = app.Environment.IsDevelopment()?"Development":"Production";
+var appEnvironment = app.Environment.IsDevelopment() ? "Development" : "Production";
 
-// Log testValue and appEnvironment
+app.Logger.LogInformation("Приложение запущено");
 app.Logger.LogInformation($"TestValue: {testValue}");
 app.Logger.LogInformation($"AppEnvironment: {appEnvironment}");
+
 
 
 
@@ -43,8 +55,10 @@ var summaries = new[]
 {
     $"{testValue}", $"{testValue}", $"{testValue}",$"{appEnvironment}", $"{appEnvironment}", $"{appEnvironment}", $"{appEnvironment}", "Hot", "Sweltering", "Scorching"
 };
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/linkshortener/weatherforecast", () =>
 {
+     app.Logger.LogInformation("Обработка запроса /linkshortener/weatherforecast");
+ 
     var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
@@ -53,12 +67,15 @@ app.MapGet("/weatherforecast", () =>
             summaries[Random.Shared.Next(summaries.Length)]
         ))
         .ToArray();
+          app.Logger.LogInformation("Запрос /linkshortener/weatherforecast успешно обработан");
+
     return forecast;
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
 app.Run();
+app.Logger.LogInformation("Приложение остановлено");
 
 record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
