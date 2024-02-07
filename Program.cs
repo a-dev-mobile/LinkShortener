@@ -37,16 +37,19 @@ app.UseForwardedHeaders();
 
 if (IsDevelopment)
 {
-    // В режиме разработки используйте Swagger UI без дополнительных опций
-    app.UseSwaggerUI();
+    // В режиме разработки используйте Swagger UI с указанием пути к Swagger JSON
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    });
 }
 else
 {
-    // В продуктивной среде (не в режиме разработки) с определенными опциями
+    // В продуктивной среде (не в режиме разработки) с указанием пути к Swagger JSON
     app.UseSwaggerUI(options =>
     {
-        // options.RoutePrefix = "linkshortener/v1/swagger";
-        // options.SwaggerEndpoint("swagger.json", "v1");
+        options.RoutePrefix = ""; // Сделайте Swagger UI доступным прямо на базовом пути
+        options.SwaggerEndpoint("/linkshortener/swagger/v1/swagger.json", "My API V1");
     });
 }
 // Установка порта прослушивания на 80
