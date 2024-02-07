@@ -42,9 +42,8 @@ else
     // В продуктивной среде (не в режиме разработки) с определенными опциями
     app.UseSwaggerUI(options =>
     {
-        // options.RoutePrefix = "linkshortener/swagger";
-        // options.SwaggerEndpoint("v1/swagger.json", "v1");
-        app.Logger.LogInformation("Swagger UI configured with endpoint: /linkshortener/swagger/v1/swagger.json");
+        options.RoutePrefix = "linkshortener/v1/swagger";
+        options.SwaggerEndpoint("swagger.json", "v1");
     });
 }
 // Установка порта прослушивания на 80
@@ -69,7 +68,7 @@ var summaries = new[]
 {
     $"{testValue}", $"{testValue}", $"{testValue}",$"{appEnvironment}", $"{appEnvironment}", $"{appEnvironment}", $"{appEnvironment}", "Hot", "Sweltering", "Scorching"
 };
-app.MapGet("/weatherforecast", () =>
+app.MapGet("/linkshortener/v1/weatherforecast", () =>
 {
     app.Logger.LogInformation("Обработка запроса /linkshortener/weatherforecast");
 
