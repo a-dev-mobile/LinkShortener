@@ -28,10 +28,7 @@ var app = builder.Build();
 // Use CORS with the "AllowAll" policy
 app.UseCors("AllowAll");
 app.UseSwagger();
-app.UseSwaggerUI(options =>
-{
-    options.RoutePrefix = "linkshortener/swagger"; // Change the Swagger UI route
-});
+app.UseSwaggerUI();
 // app.UseSwaggerUI();
 
 
