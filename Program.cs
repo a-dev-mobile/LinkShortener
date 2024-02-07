@@ -43,7 +43,8 @@ else
     app.UseSwaggerUI(options =>
     {
         options.RoutePrefix = "linkshortener/swagger";
-           options.SwaggerEndpoint("./swagger/v1/swagger.json", "v1");
+            options.SwaggerEndpoint("v1/swagger.json", "v1");
+               app.Logger.LogInformation("Swagger UI configured with endpoint: /linkshortener/swagger/v1/swagger.json");
     });
 }
 // Установка порта прослушивания на 80
