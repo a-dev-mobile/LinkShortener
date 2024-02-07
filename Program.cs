@@ -46,10 +46,14 @@ if (IsDevelopment)
 else
 {
     // В продуктивной среде (не в режиме разработки) с определенными опциями
-app.UseSwaggerUI(c =>
-{
-    c.SwaggerEndpoint("/linkshortener/swagger/v1/swagger.json", "My API V1");
-});
+     app.UseSwaggerUI();
+
+     
+    // app.UseSwaggerUI(options =>
+// {
+    // options.RoutePrefix = "swagger";
+    // options.SwaggerEndpoint("/linkshortener/swagger/v1/swagger.json", "My API V1");
+// });
 }
 // Установка порта прослушивания на 80
 if (!IsDevelopment)
