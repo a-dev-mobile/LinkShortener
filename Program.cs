@@ -28,7 +28,7 @@ var app = builder.Build();
 // Use CORS with the "AllowAll" policy
 var testValue = builder.Configuration.GetValue<string>("TestValue");
 var IsDevelopment = app.Environment.IsDevelopment();
-var appEnvironment = IsDevelopment ? "2Development" : "2Production";
+var appEnvironment = IsDevelopment ? "11Development" : "11Production";
 app.UseCors("AllowAll");
 app.UsePathBase("/linkshortener");
 app.UseForwardedHeaders();

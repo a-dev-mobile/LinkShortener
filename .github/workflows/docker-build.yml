@@ -27,3 +27,12 @@ jobs:
         push: true
         tags: |
           wayofdt/linkshortener:latest
+
+    - name: SSH and Deploy
+      uses: appleboy/ssh-action@v0.1.4
+      with:
+        host: 91.223.70.72
+        username: ubuntu
+        password: ${{ secrets.SERVER_SSH_PASSWORD }}
+        script: |
+          cd myproject/wayofdt-projects/ && git pull && docker-compose pull linkshortener && docker-compose up -d --no-deps linkshortener && docker image prune -f && cd ../..
