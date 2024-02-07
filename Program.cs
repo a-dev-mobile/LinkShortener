@@ -74,6 +74,9 @@ app.MapGet("/linkshortener/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
+// Установка порта прослушивания на 80
+app.Urls.Add("http://*:80");
+
 app.Run();
 app.Logger.LogInformation("Приложение остановлено");
 
