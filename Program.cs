@@ -8,18 +8,26 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 
 var testValue = builder.Configuration.GetValue<string>("TestValue");
+var appEnvironment = app.Environment.IsDevelopment()?"Development":"Production";
+
+
 var summaries = new[]
+
+
+
+
+
 {
-    $"{testValue}", $"{testValue}", $"{testValue}","Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    $"{testValue}", $"{testValue}", $"{testValue}",$"{appEnvironment}", $"{appEnvironment}", $"{appEnvironment}", $"{appEnvironment}", "Hot", "Sweltering", "Scorching"
 };
 app.MapGet("/weatherforecast", () =>
 {
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
+    var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
             DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
