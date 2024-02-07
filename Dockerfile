@@ -15,7 +15,7 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0
 WORKDIR /app
 COPY --from=build-env /app/out .
 
-EXPOSE 443
+EXPOSE 80
 
 # Укажите команду для запуска приложения
 ENTRYPOINT ["dotnet", "LinkShortener.dll"]
