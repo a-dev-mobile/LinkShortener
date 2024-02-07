@@ -26,14 +26,30 @@ builder.Services.AddCors(options =>
 var app = builder.Build();
 
 // Use CORS with the "AllowAll" policy
+var testValue = builder.Configuration.GetValue<string>("TestValue");
+var IsDevelopment = app.Environment.IsDevelopment();
+var appEnvironment = IsDevelopment ? "Development" : "Production";
 app.UseCors("AllowAll");
 app.UseSwagger();
-app.UseSwaggerUI();
-// app.UseSwaggerUI();
 
+if (IsDevelopment)
+{
+    // В режиме разработки используйте Swagger UI без дополнительных опций
+    app.UseSwaggerUI();
+}
+else
+{
+    // В продуктивной среде (не в режиме разработки) с определенными опциями
+    app.UseSwaggerUI(options =>
+    {
+        options.RoutePrefix = "linkshortener";
+        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+    });
+}
+// Установка порта прослушивания на 80
+if (!IsDevelopment)
+    app.Urls.Add("http://*:80");
 
-var testValue = builder.Configuration.GetValue<string>("TestValue");
-var appEnvironment = app.Environment.IsDevelopment() ? "Development" : "Production";
 
 app.Logger.LogInformation("Приложение запущено");
 app.Logger.LogInformation($"TestValue: {testValue}");
@@ -54,8 +70,8 @@ var summaries = new[]
 };
 app.MapGet("/linkshortener/weatherforecast", () =>
 {
-     app.Logger.LogInformation("Обработка запроса /linkshortener/weatherforecast");
- 
+    app.Logger.LogInformation("Обработка запроса /linkshortener/weatherforecast");
+
     var forecast = Enumerable.Range(1, 5).Select(index =>
         new WeatherForecast
         (
@@ -64,15 +80,14 @@ app.MapGet("/linkshortener/weatherforecast", () =>
             summaries[Random.Shared.Next(summaries.Length)]
         ))
         .ToArray();
-          app.Logger.LogInformation("Запрос /linkshortener/weatherforecast успешно обработан");
+    app.Logger.LogInformation("Запрос /linkshortener/weatherforecast успешно обработан");
 
     return forecast;
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
-// Установка порта прослушивания на 80
-app.Urls.Add("http://*:80");
+
 
 app.Run();
 app.Logger.LogInformation("Приложение остановлено");
