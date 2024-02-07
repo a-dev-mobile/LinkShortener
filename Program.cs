@@ -28,7 +28,7 @@ var app = builder.Build();
 // Use CORS with the "AllowAll" policy
 var testValue = builder.Configuration.GetValue<string>("TestValue");
 var IsDevelopment = app.Environment.IsDevelopment();
-var appEnvironment = IsDevelopment ? "Development" : "Production";
+var appEnvironment = IsDevelopment ? "1Development" : "1Production";
 app.UseCors("AllowAll");
 app.UseSwagger();
 
@@ -42,8 +42,9 @@ else
     // В продуктивной среде (не в режиме разработки) с определенными опциями
     app.UseSwaggerUI(options =>
     {
-        options.RoutePrefix = "linkshortener";
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        // options.RoutePrefix = "linkshortener";
+        // options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+        options.RoutePrefix = "linkshortener/swagger";
     });
 }
 // Установка порта прослушивания на 80
