@@ -42,9 +42,8 @@ else
     // В продуктивной среде (не в режиме разработки) с определенными опциями
     app.UseSwaggerUI(options =>
     {
-        // options.RoutePrefix = "linkshortener";
-        // options.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
         options.RoutePrefix = "linkshortener/swagger";
+           options.SwaggerEndpoint("/linkshortener/swagger/v1/swagger.json", "My API V1");
     });
 }
 // Установка порта прослушивания на 80
