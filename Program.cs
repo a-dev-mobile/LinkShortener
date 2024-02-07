@@ -1,5 +1,3 @@
-using Microsoft.OpenApi.Models;
-
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -12,11 +10,7 @@ builder.Logging.SetMinimumLevel(LogLevel.Debug); // Или другой уров
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-    c.DocumentFilter<BasePathDocumentFilter>(); 
-});
+builder.Services.AddSwaggerGen();
 
 // Add CORS services and define the "AllowAll" policy
 builder.Services.AddCors(options =>
@@ -46,14 +40,11 @@ if (IsDevelopment)
 else
 {
     // В продуктивной среде (не в режиме разработки) с определенными опциями
-     app.UseSwaggerUI();
-
-     
-    // app.UseSwaggerUI(options =>
-// {
-    // options.RoutePrefix = "swagger";
-    // options.SwaggerEndpoint("/linkshortener/swagger/v1/swagger.json", "My API V1");
-// });
+    app.UseSwaggerUI(options =>
+    {
+        options.RoutePrefix = "linkshortener/swagger";
+           options.SwaggerEndpoint("./swagger/v1/swagger.json", "v1");
+    });
 }
 // Установка порта прослушивания на 80
 if (!IsDevelopment)
