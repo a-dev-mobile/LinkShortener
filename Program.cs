@@ -30,17 +30,17 @@ var testValue = builder.Configuration.GetValue<string>("TestValue");
 var IsDevelopment = app.Environment.IsDevelopment();
 var appEnvironment = IsDevelopment ? "2Development" : "2Production";
 app.UseCors("AllowAll");
-app.UseSwagger();
-
 app.UsePathBase("/linkshortener");
 app.UseForwardedHeaders();
+app.UseSwagger();
+
 
 if (IsDevelopment)
 {
     // В режиме разработки используйте Swagger UI с указанием пути к Swagger JSON
     app.UseSwaggerUI(options =>
     {
-        options.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        options.SwaggerEndpoint("/linkshortener/swagger/v1/swagger.json", "My API V1");
     });
 }
 else
@@ -48,7 +48,7 @@ else
     // В продуктивной среде (не в режиме разработки) с указанием пути к Swagger JSON
     app.UseSwaggerUI(options =>
     {
-        options.RoutePrefix = ""; // Сделайте Swagger UI доступным прямо на базовом пути
+        // options.RoutePrefix = ""; // Сделайте Swagger UI доступным прямо на базовом пути
         options.SwaggerEndpoint("/linkshortener/swagger/v1/swagger.json", "My API V1");
     });
 }
