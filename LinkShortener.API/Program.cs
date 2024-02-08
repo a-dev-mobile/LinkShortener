@@ -1,3 +1,13 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+using LinkShortener.Data; 
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -5,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
-builder.Logging.SetMinimumLevel(LogLevel.Debug); // Или другой уровень по вашему выбору
+builder.Logging.SetMinimumLevel(LogLevel.Debug); 
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -35,23 +45,14 @@ app.UseForwardedHeaders();
 app.UseSwagger();
 
 
-if (IsDevelopment)
+
+// В режиме разработки используйте Swagger UI с указанием пути к Swagger JSON
+app.UseSwaggerUI(options =>
 {
-    // В режиме разработки используйте Swagger UI с указанием пути к Swagger JSON
-    app.UseSwaggerUI(options =>
-    {
-        options.SwaggerEndpoint("/linkshortener/swagger/v1/swagger.json", "My API V1");
-    });
-}
-else
-{
-    // В продуктивной среде (не в режиме разработки) с указанием пути к Swagger JSON
-    app.UseSwaggerUI(options =>
-    {
-        // options.RoutePrefix = ""; // Сделайте Swagger UI доступным прямо на базовом пути
-        options.SwaggerEndpoint("/linkshortener/swagger/v1/swagger.json", "My API V1");
-    });
-}
+    options.SwaggerEndpoint("/linkshortener/swagger/v1/swagger.json", "My API V1");
+});
+
+
 // Установка порта прослушивания на 80
 if (!IsDevelopment)
     app.Urls.Add("http://*:80");
