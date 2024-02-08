@@ -11,11 +11,16 @@ using LinkShortener.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 
+
 // Настройка логирования
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 builder.Logging.AddDebug();
 builder.Logging.SetMinimumLevel(LogLevel.Debug); 
+
+// Добавление и настройка контекста базы данных
+builder.Services.AddDbContext<LinkShortenerDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
