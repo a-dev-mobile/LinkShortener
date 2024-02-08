@@ -5,12 +5,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using LinkShortener.Data;
+using LinkShortener.Data.Interfaces;
+using LinkShortener.Data.Repositories;
+using LinkShortener.Service.Interfaces;
 
 
 
 var builder = WebApplication.CreateBuilder(args);
-
-
 
 // Настройка логирования
 builder.Logging.ClearProviders();
@@ -21,6 +22,12 @@ builder.Logging.SetMinimumLevel(LogLevel.Debug);
 // Добавление и настройка контекста базы данных
 builder.Services.AddDbContext<LinkShortenerDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+// Регистрация  в DI контейнере
+builder.Services.AddScoped<ILinkRepository, LinkRepository>();
+builder.Services.AddScoped<ILinkShortenerService, LinkShortenerService>();
+
 
 // Добавление сервисов для контроллеров
 builder.Services.AddControllers();
@@ -69,6 +76,6 @@ app.Logger.LogInformation("Приложение запущено");
 app.Logger.LogInformation($"AppEnvironment: {appEnvironment}");
 
 // Регистрация маршрутов для контроллеров
-app.MapControllers(); 
+app.MapControllers();
 
 app.Run();

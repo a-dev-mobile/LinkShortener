@@ -2,53 +2,41 @@ using Microsoft.AspNetCore.Mvc;
 using LinkShortener.Data;
 using LinkShortener.Data.Models;
 using System.Linq;
+using LinkShortener.Service.Interfaces;
 
 namespace LinkShortener.API.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("/")]
     public class LinksController : ControllerBase
     {
-        private readonly LinkShortenerDbContext _dbContext;
+        private readonly ILinkShortenerService _linkShortenerService;
 
-        public LinksController(LinkShortenerDbContext dbContext)
+        public LinksController(ILinkShortenerService linkShortenerService)
         {
-            _dbContext = dbContext;
+            _linkShortenerService = linkShortenerService;
         }
 
+
         [HttpPost("create")]
-        public IActionResult CreateShortLink([FromBody] string originalUrl)
+        public async Task<IActionResult> CreateShortLink([FromBody] string originalUrl)
         {
-            var shortUrl = GenerateShortUrl(); 
-
-            var link = new Link
-            {
-                OriginalUrl = originalUrl,
-                ShortenedUrl = shortUrl,
-                DateCreated = DateTime.UtcNow
-            };
-
-            _dbContext.Links.Add(link);
-            _dbContext.SaveChanges();
-
+            var shortUrl = await _linkShortenerService.GenerateShortLink(originalUrl);
             return Ok(new { shortUrl });
         }
 
         [HttpGet("{shortUrl}")]
-        public IActionResult RedirectToOriginalUrl(string shortUrl)
+        public async Task<IActionResult> RedirectToOriginalUrl(string shortUrl)
         {
-            var link = _dbContext.Links.FirstOrDefault(l => l.ShortenedUrl == shortUrl);
-
+            var link = await _linkShortenerService.GetLinkByShortUrlAsync(shortUrl);
             if (link == null)
+            {
                 return NotFound();
+            }
 
             return Redirect(link.OriginalUrl);
         }
 
-        private string GenerateShortUrl()
-        {
-            // Реализация генерации уникальной короткой ссылки
-            return "someShortUrl";
-        }
+
     }
 }

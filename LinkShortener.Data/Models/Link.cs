@@ -11,7 +11,7 @@
         {
             OriginalUrl = string.Empty; 
             ShortenedUrl = string.Empty; 
-            DateCreated = DateTime.Now;
+            DateCreated = DateTime.UtcNow ;
         }
     }
 
