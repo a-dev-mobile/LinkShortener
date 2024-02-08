@@ -48,16 +48,25 @@ app.UseCors("AllowAll");
 app.UsePathBase("/linkshortener");
 app.UseForwardedHeaders();
 app.UseSwagger();
-app.UseSwaggerUI(options => { options.SwaggerEndpoint("/linkshortener/swagger/v1/swagger.json", "My API V1"); });
-
+app.UseSwaggerUI(options =>
+{
+    options.SwaggerEndpoint("/linkshortener/swagger/v1/swagger.json", "My API V1");
+});
 
 // Установка порта прослушивания на 80
 if (!app.Environment.IsDevelopment())
 {
     app.Urls.Add("http://*:80");
+
 }
 
-// app.UseAuthorization();
+
+
+
+var IsDevelopment = app.Environment.IsDevelopment();
+var appEnvironment = IsDevelopment ? "3Development" : "3Production";
+app.Logger.LogInformation("Приложение запущено");
+app.Logger.LogInformation($"AppEnvironment: {appEnvironment}");
 
 // Регистрация маршрутов для контроллеров
 app.MapControllers(); 
