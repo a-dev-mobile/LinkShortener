@@ -32,6 +32,13 @@ public class LinkShortenerService : ILinkShortenerService
         return shortUrl;
     }
 
+    public async Task<List<Link>> GetAllLinksAsync()
+
+    {
+        return await _linkRepository.GetAllLinksAsync();
+    }
+
+
     public async Task<Link?> GetLinkByShortUrlAsync(string shortUrl)
     {
         return await _linkRepository.GetLinkByShortUrlAsync(shortUrl);

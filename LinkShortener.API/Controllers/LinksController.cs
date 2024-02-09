@@ -20,7 +20,7 @@ namespace LinkShortener.API.Controllers
 
 
         [HttpPost("create")]
-        [ProducesResponseType(typeof(CreateLinkResponse), StatusCodes.Status200OK)] 
+        [ProducesResponseType(typeof(CreateLinkResponse), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
 
@@ -56,6 +56,16 @@ namespace LinkShortener.API.Controllers
             }
 
             return Redirect(link.OriginalUrl);
+        }
+
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllLinks()
+        {
+            var links = await _linkShortenerService.GetAllLinksAsync();
+            var response = links.Select(link =>
+                    new LinkDetailsResponse { DateCreated = link.DateCreated, ShortUrl = $"{Request.Scheme}://{Request.Host}/linkshortener/{link.ShortenedUrl}", OriginalUrl = link.OriginalUrl }).ToList();
+
+            return Ok(response);
         }
 
 

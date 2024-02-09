@@ -21,6 +21,11 @@ namespace LinkShortener.Data.Repositories
             return link;
         }
 
+        public async Task<List<Link>> GetAllLinksAsync()
+        {
+            return await _context.Links.ToListAsync();
+        }
+
         public async Task<Link?> GetLinkByShortUrlAsync(string shortUrl)
         {
             return await _context.Links.FirstOrDefaultAsync(l => l.ShortenedUrl == shortUrl);

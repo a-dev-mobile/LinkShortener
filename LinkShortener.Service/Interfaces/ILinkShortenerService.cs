@@ -6,5 +6,6 @@ namespace LinkShortener.Service.Interfaces
     {
         Task<string> GenerateShortLink(string originalUrl);
         Task<Link?> GetLinkByShortUrlAsync(string shortUrl);
+        Task<List<Link>> GetAllLinksAsync();
     }
 }
