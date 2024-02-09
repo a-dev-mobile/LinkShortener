@@ -8,6 +8,9 @@ using LinkShortener.Data;
 using LinkShortener.Data.Interfaces;
 using LinkShortener.Data.Repositories;
 using LinkShortener.Service.Interfaces;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
+using Swashbuckle.AspNetCore.Filters;
 
 
 
@@ -35,7 +38,26 @@ builder.Services.AddControllers();
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+builder.Services.AddSwaggerGen(options =>
+{
+    options.IncludeXmlComments(xmlPath);
+    options.SwaggerDoc("v1", new OpenApiInfo
+    {
+
+        Version = "v1",
+        Title = "Link Shortener API",
+        Description = "API for shortening links",
+        Contact = new OpenApiContact
+        {
+            Name = "Dmitriy Trofimov",
+            Email = "wayofdt@gmail.com",
+
+        },
+
+    });
+});
 
 // Add CORS services and define the "AllowAll" policy
 builder.Services.AddCors(options =>
