@@ -10,6 +10,10 @@ using LinkShortener.Data.Repositories;
 using LinkShortener.Service.Interfaces;
 using Microsoft.OpenApi.Models;
 using System.Reflection;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using LinkShortener.API.Controllers.Models;
+using Microsoft.OpenApi.Any;
+using LinkShortener.API.SwaggerExtensions;
 
 
 
@@ -57,6 +61,8 @@ builder.Services.AddSwaggerGen(options =>
         },
 
     });
+    options.SchemaFilter<CustomSchemaFilter>();
+    options.OperationFilter<ExamplesOperationFilter>();
 });
 
 // Add CORS services and define the "AllowAll" policy
@@ -101,3 +107,7 @@ app.Logger.LogInformation($"AppEnvironment: {appEnvironment}");
 app.MapControllers();
 
 app.Run();
+
+
+
+

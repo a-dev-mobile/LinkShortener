@@ -3,6 +3,7 @@ using LinkShortener.Data;
 using LinkShortener.Data.Models;
 using System.Linq;
 using LinkShortener.Service.Interfaces;
+using LinkShortener.API.Controllers.Models;
 
 namespace LinkShortener.API.Controllers
 {
@@ -19,10 +20,30 @@ namespace LinkShortener.API.Controllers
 
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateShortLink([FromBody] string originalUrl)
+        [ProducesResponseType(typeof(CreateLinkResponse), StatusCodes.Status200OK)] 
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+
+        public async Task<IActionResult> CreateShortLink([FromBody] CreateLinkRequest request)
         {
-            var shortUrl = await _linkShortenerService.GenerateShortLink(originalUrl);
-            return Ok(new { shortUrl });
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState); // Возвращает ошибку, если URL невалиден
+            }
+            // Генерация короткой ссылки
+            var shortUrl = await _linkShortenerService.GenerateShortLink(request.OriginalUrl);
+            // Формирование полного URL
+            var fullUrl = $"{Request.Scheme}://{Request.Host}/linkshortener/{shortUrl}";
+
+            var response = new CreateLinkResponse
+            {
+                ShortUrl = shortUrl,
+                FullUrl = fullUrl
+            };
+
+            // Возврат ответа с коротким и полным URL
+            return Ok(response);
         }
 
         [HttpGet("{shortUrl}")]
